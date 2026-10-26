@@ -1,146 +1,901 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DSA Tracker – NeetCode 150 + Striver</title>
-<style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#F3E3D0;--card:#AACDDC;--tx:#010736;--mut:#22396F;--bd:#81A6C6;--ac:#22396F;--ok:#166534;--n:#9a3412;--s:#1e3a8a}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#010736;--card:#0D1C42;--tx:#FCF1D0;--mut:color-mix(in srgb,#FCF1D0 65%,#0D1C42);--bd:#22396F;--ac:#FCF1D0;--ok:#4ade80;--n:#fbbf24;--s:#60a5fa}}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#010736;--card:#0D1C42;--tx:#FCF1D0;--mut:color-mix(in srgb,#FCF1D0 65%,#0D1C42);--bd:#22396F;--ac:#FCF1D0;--ok:#4ade80;--n:#fbbf24;--s:#60a5fa}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.w{width:100%;max-width:none;margin:0;padding:20px clamp(12px,3vw,40px) 60px}
-h1{font-size:22px;margin:0}
-.sub{color:var(--mut);font-size:13px;margin:2px 0 16px}
-.hi{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;margin-bottom:18px}.hi h2{margin:0;font-size:26px}.hi p{margin:2px 0 0;color:var(--mut)}
-.qt{flex:1;min-width:240px;max-width:520px;text-align:right;font-style:italic;cursor:pointer}.qt small{display:block;font-style:normal;color:var(--mut);margin-top:2px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}.top .sub{margin-bottom:0}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px 16px}
-.bar{height:10px;background:var(--bd);border-radius:99px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--ac);border-radius:99px;transition:width .3s}
-.bar.ok i{background:var(--ok)}
-.big{font-size:30px;font-weight:700}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:12px}
-.stat{background:var(--bg);border-radius:10px;padding:8px 12px}
-.stat b{display:block;font-size:20px}.stat span{font-size:12px;color:var(--mut)}
-.ctl{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
-input[type=search],select,button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 10px}
-input[type=search]{flex:1;min-width:160px}
-button{cursor:pointer}button:hover{border-color:var(--ac)}
-details{margin-bottom:10px}
-summary{list-style:none;cursor:pointer}summary::-webkit-details-marker{display:none}
-.th{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.tn{font-weight:600}.tn small{color:var(--mut);font-weight:400}
-.tc{font-size:12px;color:var(--mut);display:flex;gap:10px;flex-wrap:wrap}
-.tc b{color:var(--tx)}
-.done-t .tn::after{content:" ✓";color:var(--ok)}
-.list{margin-top:10px;border-top:1px solid var(--bd)}
-.q{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--bd)}
-.q:last-child{border-bottom:0}
-.q input{width:18px;height:18px;accent-color:var(--ok);flex:none}
-.q .nm{flex:1;min-width:0}
-.q.d .nt{text-decoration:line-through;color:var(--mut)}
-.bd{font-size:11px;font-weight:700;padding:1px 6px;border-radius:5px;border:1px solid}
-.bN{color:var(--n)}.bS{color:var(--s)}
-.lk{font-size:12px;display:flex;gap:8px;flex:none}
-.lk a{color:var(--ac);text-decoration:none}.lk a:hover{text-decoration:underline}
-.empty{color:var(--mut);padding:10px 0;font-size:13px}
-.tm{display:block;font-size:11px;color:var(--mut)}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}.ov[hidden]{display:none}
-.ov .card{max-width:340px;width:100%}.ov h2{margin:0 0 4px}.ov p{margin:0;color:var(--mut)}
-.ov input{width:100%;margin:12px 0;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
-.ov button{width:100%;background:var(--ac);color:var(--bg);border-color:var(--ac);font-weight:600}
-.lk2{border:0;background:none;color:var(--ac);padding:0;margin-top:2px;font-size:12px;text-decoration:underline}
-.df{font-size:11px;font-weight:700;flex:none}.dE{color:var(--ok)}.dM{color:var(--n)}.dH{color:#e11d48}
-.ic{border:0;background:none;padding:2px 4px;font-size:16px;line-height:1;opacity:.5;flex:none}.ic.on,.ic:hover{opacity:1}
-.nb{padding:0 2px 8px 28px}.nb textarea,#bt{width:100%;min-height:70px;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px;resize:vertical}
 
-#au{flex-direction:column;gap:12px}
-#au .ac{position:relative;width:800px;max-width:100%;min-height:520px;background:var(--card);border:1px solid var(--bd);border-radius:12px;overflow:hidden;box-shadow:0 15px 30px rgba(0,0,0,.25)}
-#au .fc{position:absolute;top:0;left:0;width:50%;height:100%;transition:all .6s ease-in-out}
-#au .si{z-index:2}#au .su{opacity:0;z-index:1}
-#au .ac.right-panel-active .si{transform:translateX(100%)}
-#au .ac.right-panel-active .su{transform:translateX(100%);opacity:1;z-index:5}
-#au form{background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:0 40px;text-align:center}
-#au h1{font-size:26px;margin:0 0 8px}
-#au input{width:100%;margin:8px 0;padding:12px;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:6px;font:inherit}
-#au button{width:auto;padding:12px 45px;border-radius:20px;background:var(--ac);color:var(--bg);border:0;font-weight:700;margin-top:10px}
-#au button+button{margin-top:10px}
-#au button.ghost{background:transparent;border:2px solid var(--bg);color:var(--bg)}
-#au a{color:var(--ac)}#au .fp{font-size:12px;margin:4px 0}
-#au .msg{min-height:18px;font-size:12px;margin:8px 0 0;color:var(--n)}
-#au .note{font-size:11px;color:var(--mut)}
-#au .sw{display:none;font-size:12px;margin:12px 0 0}
-#au .oc{position:absolute;top:0;left:50%;width:50%;height:100%;overflow:hidden;transition:transform .6s ease-in-out;z-index:100}
-#au .ol{background:var(--ac);color:var(--bg);position:relative;left:-100%;height:100%;width:200%;transition:transform .6s ease-in-out}
-#au .ac.right-panel-active .oc{transform:translateX(-100%)}
-#au .ac.right-panel-active .ol{transform:translateX(50%)}
-#au .op{position:absolute;top:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 40px;text-align:center;height:100%;width:50%;transition:transform .6s ease-in-out}
-#au .oleft{transform:translateX(-20%)}#au .oright{right:0}
-#au .ac.right-panel-active .oleft{transform:translateX(0)}
-#au .ac.right-panel-active .oright{transform:translateX(20%)}
-#au button.skip{background:none;color:#fff;text-decoration:underline;padding:4px;font-weight:400}
-@media (max-width:700px){#au .oc{display:none}#au .ac{min-height:580px}#au .fc{width:100%}#au .su,#au .ac.right-panel-active .si{display:none}#au .ac.right-panel-active .su{display:block;transform:none;opacity:1}#au .ac.right-panel-active .si{transform:none}#au .sw{display:block}}
-.ai{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.ai button{padding:5px 10px;font-size:13px}.air{white-space:pre-wrap;font-size:13px;margin-top:6px}
-#bk .card{max-width:480px}#ad .card{max-width:760px;max-height:85vh;overflow:auto}.uc{border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:var(--bg)}#bt{min-height:120px;margin:10px 0 0}.ov button+button{margin-top:8px}.ov button.sc{background:var(--card);color:var(--tx);border-color:var(--bd)}
-@media (min-width:900px){#tp{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:10px;align-items:start}#tp details{margin:0}}
-@media (max-width:600px){body{font-size:14px}.hi h2{font-size:22px}.qt{text-align:left;min-width:0;flex-basis:100%}.top{flex-wrap:wrap}.ctl select,.ctl button{flex:1}.q{flex-wrap:wrap}.q .lk{flex-basis:100%;padding-left:28px}.big{font-size:26px}}
-</style>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>DSA Tracker</title>
+    <style>
+        :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #F3E3D0;
+            --card: #AACDDC;
+            --tx: #010736;
+            --mut: #22396F;
+            --bd: #81A6C6;
+            --ac: #22396F;
+            --ok: #166534;
+            --n: #9a3412;
+            --s: #1e3a8a
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                color-scheme: dark;
+                --bg: #010736;
+                --card: #0D1C42;
+                --tx: #FCF1D0;
+                --mut: color-mix(in srgb, #FCF1D0 65%, #0D1C42);
+                --bd: #22396F;
+                --ac: #FCF1D0;
+                --ok: #4ade80;
+                --n: #fbbf24;
+                --s: #60a5fa
+            }
+        }
+
+        :root[data-theme="dark"] {
+            color-scheme: dark;
+            --bg: #010736;
+            --card: #0D1C42;
+            --tx: #FCF1D0;
+            --mut: color-mix(in srgb, #FCF1D0 65%, #0D1C42);
+            --bd: #22396F;
+            --ac: #FCF1D0;
+            --ok: #4ade80;
+            --n: #fbbf24;
+            --s: #60a5fa
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--tx);
+            font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+        }
+
+        .w {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 20px clamp(12px, 3vw, 40px) 60px
+        }
+
+        h1 {
+            font-size: 22px;
+            margin: 0
+        }
+
+        .sub {
+            color: var(--mut);
+            font-size: 13px;
+            margin: 2px 0 16px
+        }
+
+        .hi {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px 24px;
+            margin-bottom: 18px
+        }
+
+        .hi h2 {
+            margin: 0;
+            font-size: 26px
+        }
+
+        .hi p {
+            margin: 2px 0 0;
+            color: var(--mut)
+        }
+
+        .qt {
+            flex: 1;
+            min-width: 240px;
+            max-width: 520px;
+            text-align: right;
+            font-style: italic;
+            cursor: pointer
+        }
+
+        .qt small {
+            display: block;
+            font-style: normal;
+            color: var(--mut);
+            margin-top: 2px
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px
+        }
+
+        .top .sub {
+            margin-bottom: 0
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+            padding: 14px 16px
+        }
+
+        .bar {
+            height: 10px;
+            background: var(--bd);
+            border-radius: 99px;
+            overflow: hidden
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--ac);
+            border-radius: 99px;
+            transition: width .3s
+        }
+
+        .bar.ok i {
+            background: var(--ok)
+        }
+
+        .big {
+            font-size: 30px;
+            font-weight: 700
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 12px
+        }
+
+        .stat {
+            background: var(--bg);
+            border-radius: 10px;
+            padding: 8px 12px
+        }
+
+        .stat b {
+            display: block;
+            font-size: 20px
+        }
+
+        .stat span {
+            font-size: 12px;
+            color: var(--mut)
+        }
+
+        .ctl {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0
+        }
+
+        input[type=search],
+        select,
+        button {
+            font: inherit;
+            color: var(--tx);
+            background: var(--card);
+            border: 1px solid var(--bd);
+            border-radius: 8px;
+            padding: 7px 10px
+        }
+
+        input[type=search] {
+            flex: 1;
+            min-width: 160px
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        button:hover {
+            border-color: var(--ac)
+        }
+
+        details {
+            margin-bottom: 10px
+        }
+
+        summary {
+            list-style: none;
+            cursor: pointer
+        }
+
+        summary::-webkit-details-marker {
+            display: none
+        }
+
+        .th {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap
+        }
+
+        .tn {
+            font-weight: 600
+        }
+
+        .tn small {
+            color: var(--mut);
+            font-weight: 400
+        }
+
+        .tc {
+            font-size: 12px;
+            color: var(--mut);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .tc b {
+            color: var(--tx)
+        }
+
+        .done-t .tn::after {
+            content: " ✓";
+            color: var(--ok)
+        }
+
+        .list {
+            margin-top: 10px;
+            border-top: 1px solid var(--bd)
+        }
+
+        .q {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 2px;
+            border-bottom: 1px solid var(--bd)
+        }
+
+        .q:last-child {
+            border-bottom: 0
+        }
+
+        .q input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--ok);
+            flex: none
+        }
+
+        .q .nm {
+            flex: 1;
+            min-width: 0
+        }
+
+        .q.d .nt {
+            text-decoration: line-through;
+            color: var(--mut)
+        }
+
+        .bd {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 5px;
+            border: 1px solid
+        }
+
+        .bN {
+            color: var(--n)
+        }
+
+        .bS {
+            color: var(--s)
+        }
+
+        .lk {
+            font-size: 12px;
+            display: flex;
+            gap: 8px;
+            flex: none
+        }
+
+        .lk a {
+            color: var(--ac);
+            text-decoration: none
+        }
+
+        .lk a:hover {
+            text-decoration: underline
+        }
+
+        .empty {
+            color: var(--mut);
+            padding: 10px 0;
+            font-size: 13px
+        }
+
+        .tm {
+            display: block;
+            font-size: 11px;
+            color: var(--mut)
+        }
+
+        .ov {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 50
+        }
+
+        .ov[hidden] {
+            display: none
+        }
+
+        .ov .card {
+            max-width: 340px;
+            width: 100%
+        }
+
+        .ov h2 {
+            margin: 0 0 4px
+        }
+
+        .ov p {
+            margin: 0;
+            color: var(--mut)
+        }
+
+        .ov input {
+            width: 100%;
+            margin: 12px 0;
+            font: inherit;
+            color: var(--tx);
+            background: var(--bg);
+            border: 1px solid var(--bd);
+            border-radius: 8px;
+            padding: 8px 10px
+        }
+
+        .ov button {
+            width: 100%;
+            background: var(--ac);
+            color: var(--bg);
+            border-color: var(--ac);
+            font-weight: 600
+        }
+
+        .lk2 {
+            border: 0;
+            background: none;
+            color: var(--ac);
+            padding: 0;
+            margin-top: 2px;
+            font-size: 12px;
+            text-decoration: underline
+        }
+
+        .df {
+            font-size: 11px;
+            font-weight: 700;
+            flex: none
+        }
+
+        .dE {
+            color: var(--ok)
+        }
+
+        .dM {
+            color: var(--n)
+        }
+
+        .dH {
+            color: #e11d48
+        }
+
+        .ic {
+            border: 0;
+            background: none;
+            padding: 2px 4px;
+            font-size: 16px;
+            line-height: 1;
+            opacity: .5;
+            flex: none
+        }
+
+        .ic.on,
+        .ic:hover {
+            opacity: 1
+        }
+
+        .nb {
+            padding: 0 2px 8px 28px
+        }
+
+        .nb textarea,
+        #bt {
+            width: 100%;
+            min-height: 70px;
+            font: inherit;
+            color: var(--tx);
+            background: var(--bg);
+            border: 1px solid var(--bd);
+            border-radius: 8px;
+            padding: 8px;
+            resize: vertical
+        }
+
+        #au {
+            flex-direction: column;
+            gap: 12px
+        }
+
+        #au .ac {
+            position: relative;
+            width: 800px;
+            max-width: 100%;
+            min-height: 520px;
+            background: var(--card);
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, .25)
+        }
+
+        #au .fc {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            transition: all .6s ease-in-out
+        }
+
+        #au .si {
+            z-index: 2
+        }
+
+        #au .su {
+            opacity: 0;
+            z-index: 1
+        }
+
+        #au .ac.right-panel-active .si {
+            transform: translateX(100%)
+        }
+
+        #au .ac.right-panel-active .su {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5
+        }
+
+        #au form {
+            background: var(--card);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 0 40px;
+            text-align: center
+        }
+
+        #au h1 {
+            font-size: 26px;
+            margin: 0 0 8px
+        }
+
+        #au input {
+            width: 100%;
+            margin: 8px 0;
+            padding: 12px;
+            background: var(--bg);
+            color: var(--tx);
+            border: 1px solid var(--bd);
+            border-radius: 6px;
+            font: inherit
+        }
+
+        #au button {
+            width: auto;
+            padding: 12px 45px;
+            border-radius: 20px;
+            background: var(--ac);
+            color: var(--bg);
+            border: 0;
+            font-weight: 700;
+            margin-top: 10px
+        }
+
+        #au button+button {
+            margin-top: 10px
+        }
+
+        #au button.ghost {
+            background: transparent;
+            border: 2px solid var(--bg);
+            color: var(--bg)
+        }
+
+        #au a {
+            color: var(--ac)
+        }
+
+        #au .fp {
+            font-size: 12px;
+            margin: 4px 0
+        }
+
+        #au .msg {
+            min-height: 18px;
+            font-size: 12px;
+            margin: 8px 0 0;
+            color: var(--n)
+        }
+
+        #au .note {
+            font-size: 11px;
+            color: var(--mut)
+        }
+
+        #au .sw {
+            display: none;
+            font-size: 12px;
+            margin: 12px 0 0
+        }
+
+        #au .oc {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform .6s ease-in-out;
+            z-index: 100
+        }
+
+        #au .ol {
+            background: var(--ac);
+            color: var(--bg);
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transition: transform .6s ease-in-out
+        }
+
+        #au .ac.right-panel-active .oc {
+            transform: translateX(-100%)
+        }
+
+        #au .ac.right-panel-active .ol {
+            transform: translateX(50%)
+        }
+
+        #au .op {
+            position: absolute;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 40px;
+            text-align: center;
+            height: 100%;
+            width: 50%;
+            transition: transform .6s ease-in-out
+        }
+
+        #au .oleft {
+            transform: translateX(-20%)
+        }
+
+        #au .oright {
+            right: 0
+        }
+
+        #au .ac.right-panel-active .oleft {
+            transform: translateX(0)
+        }
+
+        #au .ac.right-panel-active .oright {
+            transform: translateX(20%)
+        }
+
+        #au button.skip {
+            background: none;
+            color: #fff;
+            text-decoration: underline;
+            padding: 4px;
+            font-weight: 400
+        }
+
+        @media (max-width:700px) {
+            #au .oc {
+                display: none
+            }
+
+            #au .ac {
+                min-height: 580px
+            }
+
+            #au .fc {
+                width: 100%
+            }
+
+            #au .su,
+            #au .ac.right-panel-active .si {
+                display: none
+            }
+
+            #au .ac.right-panel-active .su {
+                display: block;
+                transform: none;
+                opacity: 1
+            }
+
+            #au .ac.right-panel-active .si {
+                transform: none
+            }
+
+            #au .sw {
+                display: block
+            }
+        }
+
+        .ai {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 6px
+        }
+
+        .ai button {
+            padding: 5px 10px;
+            font-size: 13px
+        }
+
+        .air {
+            white-space: pre-wrap;
+            font-size: 13px;
+            margin-top: 6px
+        }
+
+        #bk .card {
+            max-width: 480px
+        }
+
+        #ad .card {
+            max-width: 760px;
+            max-height: 85vh;
+            overflow: auto
+        }
+
+        .uc {
+            border: 1px solid var(--bd);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            background: var(--bg)
+        }
+
+        #bt {
+            min-height: 120px;
+            margin: 10px 0 0
+        }
+
+        .ov button+button {
+            margin-top: 8px
+        }
+
+        .ov button.sc {
+            background: var(--card);
+            color: var(--tx);
+            border-color: var(--bd)
+        }
+
+        @media (min-width:900px) {
+            #tp {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+                gap: 10px;
+                align-items: start
+            }
+
+            #tp details {
+                margin: 0
+            }
+        }
+
+        @media (max-width:600px) {
+            body {
+                font-size: 14px
+            }
+
+            .hi h2 {
+                font-size: 22px
+            }
+
+            .qt {
+                text-align: left;
+                min-width: 0;
+                flex-basis: 100%
+            }
+
+            .top {
+                flex-wrap: wrap
+            }
+
+            .ctl select,
+            .ctl button {
+                flex: 1
+            }
+
+            .q {
+                flex-wrap: wrap
+            }
+
+            .q .lk {
+                flex-basis: 100%;
+                padding-left: 28px
+            }
+
+            .big {
+                font-size: 26px
+            }
+        }
+    </style>
 </head>
+
 <body>
-<div class="w">
- <div class="top card"><div><h1>DSA Tracker</h1><div class="sub">NeetCode 150 + Striver Master DSA Patterns · 269 unique questions</div></div><button id="th">Theme</button></div>
- <div class="hi"><div><h2 id="hello"></h2><p id="gm"></p><button id="cn" class="lk2">Change name</button> · <button id="acb" class="lk2">Sign in to sync</button><span id="sy" style="font-size:12px;color:var(--mut);margin-left:6px"></span> <button id="adb" class="lk2" hidden>Admin</button></div><div class="qt" id="qt" title="Click for another quote"></div></div>
- <div class="card">
-  <div style="display:flex;justify-content:space-between;align-items:baseline"><div class="big" id="pct">0%</div><div class="sub" id="plat" style="margin:0"></div></div>
-  <div class="bar" id="ob"><i style="width:0"></i></div>
-  <div class="stats" id="st"></div>
- </div>
- <div class="ctl">
-  <input type="search" id="q" placeholder="Search questions…">
-  <select id="pf"><option value="A">All questions</option><option value="N">NeetCode 150 only</option><option value="S">Striver only</option></select>
-  <select id="sf"><option value="A">All status</option><option value="P">Pending</option><option value="D">Completed</option><option value="R">Starred (revise)</option></select>
-  <select id="df"><option value="A">All difficulty</option><option value="E">Easy</option><option value="M">Medium</option><option value="H">Hard</option></select>
-  <button id="ex">Expand all</button><button id="bkb">Backup / Restore</button>
- </div>
- <div id="tp"></div>
-</div>
-<div class="ov" id="ov" hidden><div class="card"><h2>Welcome! 👋</h2><p>Enter your name to get started.</p><input id="nm" type="text" maxlength="30" placeholder="Your name" autocomplete="off"><button id="go">Start</button></div></div>
-<div class="ov" id="bk" hidden><div class="card"><h2>Backup / Restore</h2><p>Copy this text and keep it somewhere safe. To restore, paste a saved backup here and press Restore.</p><textarea id="bt" spellcheck="false"></textarea><p id="bm" style="margin:8px 0"></p><button id="bcp">Copy</button><button id="brs">Restore from pasted text</button><button id="bcl" class="sc">Close</button></div></div>
-<div class="ov" id="au" hidden>
- <div class="ac" id="ac">
-  <div class="fc su"><form id="rf"><h1>Registration</h1>
-   <input id="an" type="text" maxlength="30" placeholder="Name" autocomplete="name" required>
-   <input id="re" type="email" placeholder="Email" autocomplete="email" required>
-   <input id="rp" type="password" minlength="6" placeholder="Password (min 6 characters)" autocomplete="new-password" required>
-   <button type="submit">Register</button>
-   <p id="rm" class="msg"></p>
-   <p class="sw">Already have an account? <a href="#" data-to="in">Login</a></p>
-  </form></div>
-  <div class="fc si"><form id="lf"><h1>Login</h1>
-   <input id="ae" type="email" placeholder="Email" autocomplete="email" required>
-   <input id="ap" type="password" placeholder="Password" autocomplete="current-password" required>
-   <a href="#" id="afp" class="fp">Forgot Password?</a>
-   <button type="submit">Login</button>
-   <p id="am" class="msg"></p>
-   <p class="sw">Don’t have an account? <a href="#" data-to="up">Register</a></p>
-  </form></div>
-  <div class="oc"><div class="ol">
-   <div class="op oleft"><h1>Welcome Back!</h1><p>Already have an account?</p><button type="button" class="ghost" id="gsi">Login</button></div>
-   <div class="op oright"><h1>Hello, Welcome!</h1><p>Don’t have an account?</p><button type="button" class="ghost" id="gsu">Register</button></div>
-  </div></div>
- </div>
- <button type="button" id="acl" class="skip">Continue without account</button>
-</div>
-<div class="ov" id="pw" hidden><div class="card"><h2>Set a new password</h2><input id="np" type="password" placeholder="New password (min 6 characters)" autocomplete="new-password"><p id="pm"></p><button id="pwb">Save password</button></div></div>
-<div class="ov" id="ad" hidden><div class="card"><h2>All members</h2><p id="adm"></p><div id="adl" style="margin-top:10px"></div><button id="adc" class="sc" style="margin-top:10px">Close</button></div></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/dist/umd/supabase.js"></script>
-<script>
-const SUPABASE_URL="https://mjxtrgerthbvjjnkxwco.supabase.co",SUPABASE_KEY="sb_publishable_wZTaqRDaiPQiQEk7pzozyg_OOiRX2jZ";
-const T=[
-["Arrays & hashing",`N Contains Duplicate
+    <div class="w">
+        <div class="top card">
+            <div>
+                <h1>DSA Tracker</h1>
+                <div class="sub">NeetCode 150 + Striver Master DSA Patterns · 269 unique questions</div>
+            </div><button id="th">Theme</button>
+        </div>
+        <div class="hi">
+            <div>
+                <h2 id="hello"></h2>
+                <p id="gm"></p><button id="cn" class="lk2">Change name</button> · <button id="acb" class="lk2">Sign in
+                    to sync</button><span id="sy" style="font-size:12px;color:var(--mut);margin-left:6px"></span>
+                <button id="adb" class="lk2" hidden>Admin</button>
+            </div>
+            <div class="qt" id="qt" title="Click for another quote"></div>
+        </div>
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <div class="big" id="pct">0%</div>
+                <div class="sub" id="plat" style="margin:0"></div>
+            </div>
+            <div class="bar" id="ob"><i style="width:0"></i></div>
+            <div class="stats" id="st"></div>
+        </div>
+        <div class="ctl">
+            <input type="search" id="q" placeholder="Search questions…">
+            <select id="pf">
+                <option value="A">All questions</option>
+                <option value="N">NeetCode 150 only</option>
+                <option value="S">Striver only</option>
+            </select>
+            <select id="sf">
+                <option value="A">All status</option>
+                <option value="P">Pending</option>
+                <option value="D">Completed</option>
+                <option value="R">Starred (revise)</option>
+            </select>
+            <select id="df">
+                <option value="A">All difficulty</option>
+                <option value="E">Easy</option>
+                <option value="M">Medium</option>
+                <option value="H">Hard</option>
+            </select>
+            <button id="ex">Expand all</button><button id="bkb">Backup / Restore</button>
+        </div>
+        <div id="tp"></div>
+    </div>
+    <div class="ov" id="ov" hidden>
+        <div class="card">
+            <h2>Welcome! 👋</h2>
+            <p>Enter your name to get started.</p><input id="nm" type="text" maxlength="30" placeholder="Your name"
+                autocomplete="off"><button id="go">Start</button>
+        </div>
+    </div>
+    <div class="ov" id="bk" hidden>
+        <div class="card">
+            <h2>Backup / Restore</h2>
+            <p>Copy this text and keep it somewhere safe. To restore, paste a saved backup here and press Restore.</p>
+            <textarea id="bt" spellcheck="false"></textarea>
+            <p id="bm" style="margin:8px 0"></p><button id="bcp">Copy</button><button id="brs">Restore from pasted
+                text</button><button id="bcl" class="sc">Close</button>
+        </div>
+    </div>
+    <div class="ov" id="au" hidden>
+        <div class="ac" id="ac">
+            <div class="fc su">
+                <form id="rf">
+                    <h1>Registration</h1>
+                    <input id="an" type="text" maxlength="30" placeholder="Name" autocomplete="name" required>
+                    <input id="re" type="email" placeholder="Email" autocomplete="email" required>
+                    <input id="rp" type="password" minlength="6" placeholder="Password (min 6 characters)"
+                        autocomplete="new-password" required>
+                    <button type="submit">Register</button>
+                    <p id="rm" class="msg"></p>
+                    <p class="sw">Already have an account? <a href="#" data-to="in">Login</a></p>
+                </form>
+            </div>
+            <div class="fc si">
+                <form id="lf">
+                    <h1>Login</h1>
+                    <input id="ae" type="email" placeholder="Email" autocomplete="email" required>
+                    <input id="ap" type="password" placeholder="Password" autocomplete="current-password" required>
+                    <a href="#" id="afp" class="fp">Forgot Password?</a>
+                    <button type="submit">Login</button>
+                    <p id="am" class="msg"></p>
+                    <p class="sw">Don’t have an account? <a href="#" data-to="up">Register</a></p>
+                </form>
+            </div>
+            <div class="oc">
+                <div class="ol">
+                    <div class="op oleft">
+                        <h1>Welcome Back!</h1>
+                        <p>Already have an account?</p><button type="button" class="ghost" id="gsi">Login</button>
+                    </div>
+                    <div class="op oright">
+                        <h1>Hello, Welcome!</h1>
+                        <p>Don’t have an account?</p><button type="button" class="ghost" id="gsu">Register</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" id="acl" class="skip">Continue without account</button>
+    </div>
+    <div class="ov" id="pw" hidden>
+        <div class="card">
+            <h2>Set a new password</h2><input id="np" type="password" placeholder="New password (min 6 characters)"
+                autocomplete="new-password">
+            <p id="pm"></p><button id="pwb">Save password</button>
+        </div>
+    </div>
+    <div class="ov" id="ad" hidden>
+        <div class="card">
+            <h2>All members</h2>
+            <p id="adm"></p>
+            <div id="adl" style="margin-top:10px"></div><button id="adc" class="sc"
+                style="margin-top:10px">Close</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/dist/umd/supabase.js"></script>
+    <script>
+        const SUPABASE_URL = "https://mjxtrgerthbvjjnkxwco.supabase.co", SUPABASE_KEY = "sb_publishable_wZTaqRDaiPQiQEk7pzozyg_OOiRX2jZ";
+        const T = [
+            ["Arrays & hashing", `N Contains Duplicate
 N Valid Anagram
 B Two Sum
 N Group Anagrams
@@ -156,7 +911,7 @@ S Reverse Pairs
 S Longest subarray with sum K
 S Count subarrays with given sum
 S Count subarrays with given xor K`],
-["Two pointers",`B 3Sum
+            ["Two pointers", `B 3Sum
 N Container With Most Water
 B Trapping Rain Water
 N Two Sum II Input Array Is Sorted
@@ -165,7 +920,7 @@ S Sort an array of 0’s 1’s and 2’s
 S Next Permutation
 S 4 Sum
 S Merge two sorted arrays without extra space`],
-["Sliding window",`N Best Time to Buy And Sell Stock
+            ["Sliding window", `N Best Time to Buy And Sell Stock
 B Longest Substring Without Repeating Characters
 B Longest Repeating Character Replacement
 N Permutation In String
@@ -177,7 +932,7 @@ S Longest Substring With At Most K Distinct Characters
 S Number of Substrings Containing All Three Characters
 S Binary Subarrays With Sum
 S Count number of Nice subarrays`],
-["Stacks & queues",`N Valid Parentheses
+            ["Stacks & queues", `N Valid Parentheses
 B Min Stack
 N Evaluate Reverse Polish Notation
 N Daily Temperatures
@@ -193,7 +948,7 @@ S Maximum Rectangles
 S Asteroid Collision
 S Celebrity Problem
 S LFU Cache`],
-["Binary search",`N Binary Search
+            ["Binary search", `N Binary Search
 B Find Minimum In Rotated Sorted Array
 B Koko Eating Bananas
 B Median of Two Sorted Arrays
@@ -210,7 +965,7 @@ S Aggressive Cows
 S Book Allocation Problem
 S Matrix Median
 S Kth element of 2 sorted arrays`],
-["Linked lists",`B Reverse Linked List
+            ["Linked lists", `B Reverse Linked List
 B Merge Two Sorted Lists
 B Linked List Cycle
 N Reorder List
@@ -230,7 +985,7 @@ S Sort a Linked List of 0’s 1’s and 2’s
 S Rotate a LL
 S Sort LL
 S Flattening of LL`],
-["Binary trees & BSTs",`N Invert Binary Tree
+            ["Binary trees & BSTs", `N Invert Binary Tree
 N Maximum Depth of Binary Tree
 B Diameter of Binary Tree
 N Balanced Binary Tree
@@ -261,7 +1016,7 @@ S Construct a BST from a preorder traversal
 S Two sum in BST
 S Correct BST with two nodes swapped
 S Largest BST in Binary Tree`],
-["Heaps & priority queues",`N Design Twitter
+            ["Heaps & priority queues", `N Design Twitter
 B Find Median From Data Stream
 N K Closest Points to Origin
 B Kth Largest Element In An Array
@@ -271,7 +1026,7 @@ N Task Scheduler
 S Heapify Algorithm
 S Build heap from a given Array
 S Implement Min Heap`],
-["Recursion & backtracking",`B Subsets
+            ["Recursion & backtracking", `B Subsets
 B Combination Sum
 B Combination Sum II
 N Permutations
@@ -282,7 +1037,7 @@ B Palindrome Partitioning
 B Letter Combinations of a Phone Number
 B N Queens
 S Sudoku Solver`],
-["Tries",`N Implement Trie Prefix Tree
+            ["Tries", `N Implement Trie Prefix Tree
 N Design Add And Search Words Data Structure
 N Word Search II
 S Trie Implementation and Advanced Operations
@@ -290,7 +1045,7 @@ S Longest Word with All Prefixes
 S Number of distinct substrings in a string
 S Maximum XOR of two numbers in an array
 S Maximum Xor with an element from an array`],
-["Graphs: traversal & connectivity",`N Clone Graph
+            ["Graphs: traversal & connectivity", `N Clone Graph
 N Course Schedule
 B Course Schedule II
 N Graph Valid Tree
@@ -314,7 +1069,7 @@ S Topological sort or Kahn’s algorithm
 S Kosaraju’s algorithm
 S Bridges in graph
 S Articulation point in graph`],
-["Graphs: paths & spanning trees",`N Network Delay Time
+            ["Graphs: paths & spanning trees", `N Network Delay Time
 N Reconstruct Itinerary
 N Min Cost to Connect All Points
 N Swim In Rising Water
@@ -332,7 +1087,7 @@ S Find the MST weight
 S Number of operations to make network connected
 S Number of islands II
 S Making a large island`],
-["Dynamic programming",`N Climbing Stairs
+            ["Dynamic programming", `N Climbing Stairs
 N Min Cost Climbing Stairs
 N House Robber
 B House Robber II
@@ -368,7 +1123,7 @@ S Number of Longest Increasing Subsequences
 S Wildcard matching
 S Matrix chain multiplication
 S Palindrome partitioning II`],
-["Greedy & intervals",`B Maximum Subarray
+            ["Greedy & intervals", `B Maximum Subarray
 B Jump Game
 N Jump Game II
 N Gas Station
@@ -386,7 +1141,7 @@ S Candy
 S N meetings in one room
 S Minimum number of platforms required for a railway
 S Job sequencing Problem`],
-["Math & geometry",`N Rotate Image
+            ["Math & geometry", `N Rotate Image
 N Spiral Matrix
 N Set Matrix Zeroes
 N Happy Number
@@ -395,7 +1150,7 @@ N Pow(x, n)
 N Multiply Strings
 N Detect Squares
 S Print all primes till N`],
-["Bit manipulation",`N Single Number
+            ["Bit manipulation", `N Single Number
 N Number of 1 Bits
 N Counting Bits
 N Reverse Bits
@@ -405,14 +1160,14 @@ N Reverse Integer
 S Single Number - II
 S Single Number - III
 S Find the repeating and missing number`],
-["String matching",`S Rabin Karp Algorithm
+            ["String matching", `S Rabin Karp Algorithm
 S Z function
 S KMP Algorithm or LPS array
 S Shortest Palindrome`]
-].map(([n,s])=>({n,q:s.split("\n").map(l=>({p:l[0],n:l.slice(2)}))}));
+        ].map(([n, s]) => ({ n, q: s.split("\n").map(l => ({ p: l[0], n: l.slice(2) })) }));
 
-const OV={"Majority Element-I":"majority-element","Longest subarray with sum K":"maximum-size-subarray-sum-equals-k","Count subarrays with given sum":"subarray-sum-equals-k","Sort an array of 0’s 1’s and 2’s":"sort-colors","4 Sum":"4sum","Next Greater Element - 2":"next-greater-element-ii","Stock span problem":"online-stock-span","Maximum Rectangles":"maximal-rectangle","Celebrity Problem":"find-the-celebrity","Single element in sorted array":"single-element-in-a-sorted-array","Search in 2D matrix - II":"search-a-2d-matrix-ii","Find Peak Element - II":"find-a-peak-element-ii","Find Middle of Linked List":"middle-of-the-linked-list","Find the intersection point of Y LL":"intersection-of-two-linked-lists","Check if LL is palindrome or not":"palindrome-linked-list","Find the starting point in LL":"linked-list-cycle-ii","Rotate a LL":"rotate-list","Sort LL":"sort-list","Binary Tree Right Side View / Left View":"binary-tree-right-side-view","Kth Smallest / Largest Element in a BST":"kth-smallest-element-in-a-bst","Maximum Width of BT":"maximum-width-of-binary-tree","Print all nodes at a distance of K in BT":"all-nodes-distance-k-in-binary-tree","Minimum time taken to burn the BT from a given Node":"amount-of-time-for-binary-tree-to-be-infected","Vertical Order Traversal":"vertical-order-traversal-of-a-binary-tree","Print root to leaf path in BT":"binary-tree-paths","LCA in BT":"lowest-common-ancestor-of-a-binary-tree","Boundary Traversal":"boundary-of-binary-tree","Morris Inorder Traversal":"binary-tree-inorder-traversal","Insert a given node in BST":"insert-into-a-binary-search-tree","Delete a node in BST":"delete-node-in-a-bst","Construct a BST from a preorder traversal":"construct-binary-search-tree-from-preorder-traversal","Two sum in BST":"two-sum-iv-input-is-a-bst","Correct BST with two nodes swapped":"recover-binary-search-tree","Largest BST in Binary Tree":"largest-bst-subtree","N Queens":"n-queens","Trie Implementation and Advanced Operations":"implement-trie-ii-prefix-tree","Longest Word with All Prefixes":"longest-word-in-dictionary","Maximum Xor with an element from an array":"maximum-xor-with-an-element-from-array","Flood fill algorithm":"flood-fill","Bipartite graph":"is-graph-bipartite","Bridges in graph":"critical-connections-in-a-network","Best time to buy and sell stock with transaction fees":"best-time-to-buy-and-sell-stock-with-transaction-fee","Number of Longest Increasing Subsequences":"number-of-longest-increasing-subsequence","Find the repeating and missing number":"set-mismatch"};
-const NO=new Set(`Count Inversions
+        const OV = { "Majority Element-I": "majority-element", "Longest subarray with sum K": "maximum-size-subarray-sum-equals-k", "Count subarrays with given sum": "subarray-sum-equals-k", "Sort an array of 0’s 1’s and 2’s": "sort-colors", "4 Sum": "4sum", "Next Greater Element - 2": "next-greater-element-ii", "Stock span problem": "online-stock-span", "Maximum Rectangles": "maximal-rectangle", "Celebrity Problem": "find-the-celebrity", "Single element in sorted array": "single-element-in-a-sorted-array", "Search in 2D matrix - II": "search-a-2d-matrix-ii", "Find Peak Element - II": "find-a-peak-element-ii", "Find Middle of Linked List": "middle-of-the-linked-list", "Find the intersection point of Y LL": "intersection-of-two-linked-lists", "Check if LL is palindrome or not": "palindrome-linked-list", "Find the starting point in LL": "linked-list-cycle-ii", "Rotate a LL": "rotate-list", "Sort LL": "sort-list", "Binary Tree Right Side View / Left View": "binary-tree-right-side-view", "Kth Smallest / Largest Element in a BST": "kth-smallest-element-in-a-bst", "Maximum Width of BT": "maximum-width-of-binary-tree", "Print all nodes at a distance of K in BT": "all-nodes-distance-k-in-binary-tree", "Minimum time taken to burn the BT from a given Node": "amount-of-time-for-binary-tree-to-be-infected", "Vertical Order Traversal": "vertical-order-traversal-of-a-binary-tree", "Print root to leaf path in BT": "binary-tree-paths", "LCA in BT": "lowest-common-ancestor-of-a-binary-tree", "Boundary Traversal": "boundary-of-binary-tree", "Morris Inorder Traversal": "binary-tree-inorder-traversal", "Insert a given node in BST": "insert-into-a-binary-search-tree", "Delete a node in BST": "delete-node-in-a-bst", "Construct a BST from a preorder traversal": "construct-binary-search-tree-from-preorder-traversal", "Two sum in BST": "two-sum-iv-input-is-a-bst", "Correct BST with two nodes swapped": "recover-binary-search-tree", "Largest BST in Binary Tree": "largest-bst-subtree", "N Queens": "n-queens", "Trie Implementation and Advanced Operations": "implement-trie-ii-prefix-tree", "Longest Word with All Prefixes": "longest-word-in-dictionary", "Maximum Xor with an element from an array": "maximum-xor-with-an-element-from-array", "Flood fill algorithm": "flood-fill", "Bipartite graph": "is-graph-bipartite", "Bridges in graph": "critical-connections-in-a-network", "Best time to buy and sell stock with transaction fees": "best-time-to-buy-and-sell-stock-with-transaction-fee", "Number of Longest Increasing Subsequences": "number-of-longest-increasing-subsequence", "Find the repeating and missing number": "set-mismatch" };
+        const NO = new Set(`Count Inversions
 Count subarrays with given xor K
 Merge two sorted arrays without extra space
 Next Greater Element
@@ -456,19 +1211,19 @@ Job sequencing Problem
 Rabin Karp Algorithm
 Z function
 KMP Algorithm or LPS array`.split("\n"));
-const lcLink=(n,e)=>{if(NO.has(n))return `<a href="https://www.google.com/search?q=${e}+takeuforward" target="_blank" rel="noopener">Practice</a>`;const s=OV[n]||n.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");return `<a href="https://leetcode.com/problems/${s}/" target="_blank" rel="noopener">LeetCode</a>`};
-const $=id=>document.getElementById(id);
-const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let sb=null,uid=null,pushT=null,uemail="",isAdmin=false,aiOut={};
-let done=new Set(),times={},stars=new Set(),notes={},noteOpen=new Set(),open=new Set([0]),pf="A",sf="A",df="A",term="";
-try{done=new Set(JSON.parse(localStorage.getItem("dsa-done")||"[]"))}catch(e){}
-try{times=JSON.parse(localStorage.getItem("dsa-times")||"{}")||{}}catch(e){}
-try{stars=new Set(JSON.parse(localStorage.getItem("dsa-stars")||"[]"))}catch(e){}
-try{notes=JSON.parse(localStorage.getItem("dsa-notes")||"{}")||{}}catch(e){}
-try{const t=localStorage.getItem("dsa-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}
-const lsave=()=>{try{localStorage.setItem("dsa-done",JSON.stringify([...done]));localStorage.setItem("dsa-times",JSON.stringify(times));localStorage.setItem("dsa-stars",JSON.stringify([...stars]));localStorage.setItem("dsa-notes",JSON.stringify(notes))}catch(e){}};
-const save=()=>{lsave();push()};
-const DE=new Set(`Contains Duplicate
+        const lcLink = (n, e) => { if (NO.has(n)) return `<a href="https://www.google.com/search?q=${e}+takeuforward" target="_blank" rel="noopener">Practice</a>`; const s = OV[n] || n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); return `<a href="https://leetcode.com/problems/${s}/" target="_blank" rel="noopener">LeetCode</a>` };
+        const $ = id => document.getElementById(id);
+        const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+        let sb = null, uid = null, pushT = null, uemail = "", isAdmin = false, aiOut = {};
+        let done = new Set(), times = {}, stars = new Set(), notes = {}, noteOpen = new Set(), open = new Set([0]), pf = "A", sf = "A", df = "A", term = "";
+        try { done = new Set(JSON.parse(localStorage.getItem("dsa-done") || "[]")) } catch (e) { }
+        try { times = JSON.parse(localStorage.getItem("dsa-times") || "{}") || {} } catch (e) { }
+        try { stars = new Set(JSON.parse(localStorage.getItem("dsa-stars") || "[]")) } catch (e) { }
+        try { notes = JSON.parse(localStorage.getItem("dsa-notes") || "{}") || {} } catch (e) { }
+        try { const t = localStorage.getItem("dsa-theme"); if (t) document.documentElement.dataset.theme = t } catch (e) { }
+        const lsave = () => { try { localStorage.setItem("dsa-done", JSON.stringify([...done])); localStorage.setItem("dsa-times", JSON.stringify(times)); localStorage.setItem("dsa-stars", JSON.stringify([...stars])); localStorage.setItem("dsa-notes", JSON.stringify(notes)) } catch (e) { } };
+        const save = () => { lsave(); push() };
+        const DE = new Set(`Contains Duplicate
 Valid Anagram
 Two Sum
 Majority Element-I
@@ -504,7 +1259,7 @@ Number of 1 Bits
 Counting Bits
 Reverse Bits
 Missing Number
-Find the repeating and missing number`.split("\n")),DH=new Set(`Reverse Pairs
+Find the repeating and missing number`.split("\n")), DH = new Set(`Reverse Pairs
 Trapping Rain Water
 Minimum Window Substring
 Sliding Window Maximum
@@ -540,91 +1295,94 @@ Palindrome partitioning II
 Minimum Interval to Include Each Query
 Candy
 Shortest Palindrome`.split("\n"));
-const dl=n=>NO.has(n)?"":DE.has(n)?"E":DH.has(n)?"H":"M";
-const tag=n=>{const d=dl(n);return d?`<span class="df d${d}">${({E:"Easy",M:"Medium",H:"Hard"})[d]}</span>`:""};
-const dayKey=t=>new Date(t).toLocaleDateString("en-CA");
-function streakInfo(){const days=new Set(),td=dayKey(Date.now());let t=0;for(const k of done){if(times[k]){const x=dayKey(times[k]);days.add(x);if(x===td)t++}}const d=new Date();let s=0;if(!days.has(dayKey(d)))d.setDate(d.getDate()-1);while(days.has(dayKey(d))){s++;d.setDate(d.getDate()-1)}return{t,s}}
-const fmt=t=>new Date(t).toLocaleString(undefined,{day:"numeric",month:"short",year:"numeric",hour:"numeric",minute:"2-digit"});
-const inPf=q=>pf==="A"||q.p==="B"||q.p===pf;
+        const dl = n => NO.has(n) ? "" : DE.has(n) ? "E" : DH.has(n) ? "H" : "M";
+        const tag = n => { const d = dl(n); return d ? `<span class="df d${d}">${({ E: "Easy", M: "Medium", H: "Hard" })[d]}</span>` : "" };
+        const dayKey = t => new Date(t).toLocaleDateString("en-CA");
+        function streakInfo() { const days = new Set(), td = dayKey(Date.now()); let t = 0; for (const k of done) { if (times[k]) { const x = dayKey(times[k]); days.add(x); if (x === td) t++ } } const d = new Date(); let s = 0; if (!days.has(dayKey(d))) d.setDate(d.getDate() - 1); while (days.has(dayKey(d))) { s++; d.setDate(d.getDate() - 1) } return { t, s } }
+        const fmt = t => new Date(t).toLocaleString(undefined, { day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit" });
+        const inPf = q => pf === "A" || q.p === "B" || q.p === pf;
 
-function render(){
- let tot=0,dn=0,tDone=0,tAll=0;
- const html=T.map((t,ti)=>{
-  const base=t.q.map((q,qi)=>({...q,k:ti+"-"+qi})).filter(inPf);
-  const d=base.filter(q=>done.has(q.k)).length,n=base.length;
-  tot+=n;dn+=d;
-  if(n){tAll++;if(d===n)tDone++}
-  const rows=base.filter(q=>(sf==="A"||(sf==="R"?stars.has(q.k):(sf==="D")===done.has(q.k)))&&(df==="A"||dl(q.n)===df)&&q.n.toLowerCase().includes(term));
-  if(!n||((term||sf!=="A"||df!=="A")&&!rows.length))return"";
-  const pc=Math.round(d/n*100);
-  const li=rows.map(q=>{
-   const e=encodeURIComponent(q.n);
-   return `<div class="q${done.has(q.k)?" d":""}"><input type="checkbox" data-k="${q.k}"${done.has(q.k)?" checked":""} aria-label="Done: ${esc(q.n)}"><span class="nm"><span class="nt">${esc(q.n)}</span>${times[q.k]&&done.has(q.k)?`<span class="tm">Solved ${fmt(times[q.k])}</span>`:""}</span>${q.p!=="S"?'<span class="bd bN">N</span>':""}${q.p!=="N"?'<span class="bd bS">S</span>':""}${tag(q.n)}<button class="ic${stars.has(q.k)?" on":""}" data-s="${q.k}" title="Revise later">${stars.has(q.k)?"★":"☆"}</button><button class="ic${notes[q.k]?" on":""}" data-n="${q.k}" title="Notes">📝</button><span class="lk">${lcLink(q.n,e)}<a href="https://www.youtube.com/results?search_query=${e}+solution" target="_blank" rel="noopener">YouTube</a></span></div>${noteOpen.has(q.k)?`<div class="nb"><textarea data-t="${q.k}" placeholder="Your approach, mistakes, complexity…">${esc(notes[q.k]||"")}</textarea><div class="ai"><button data-ai="hint" data-k2="${q.k}">💡 Hint</button><button data-ai="review" data-k2="${q.k}">🔍 Review my note</button></div><div class="air">${esc(aiOut[q.k]||"")}</div></div>`:""}`}).join("");
-  return `<details class="card${d===n?" done-t":""}" data-i="${ti}"${open.has(ti)||term?" open":""}><summary><div class="th"><div class="tn">${esc(t.n)} <small>${pc}%</small></div><div class="tc"><span>Total <b>${n}</b></span><span>Done <b style="color:var(--ok)">${d}</b></span><span>Left <b>${n-d}</b></span></div></div><div class="bar${d===n?" ok":""}"><i style="width:${pc}%"></i></div></summary><div class="list">${li||'<div class="empty">No matching questions.</div>'}</div></details>`;
- }).join("");
- $("tp").innerHTML=html||'<div class="empty">Nothing matches your filters.</div>';
- const pc=tot?Math.round(dn/tot*100):0;
- $("pct").textContent=pc+"%";
- $("ob").firstElementChild.style.width=pc+"%";
- $("plat").textContent=({A:"NeetCode + Striver",N:"NeetCode 150",S:"Striver Master DSA"})[pf];
- const SI=streakInfo();$("st").innerHTML=[["Total",tot],["Completed",dn],["Remaining",tot-dn],["Topics done",tDone+" / "+tAll],["Topics left",tAll-tDone],["Solved today",SI.t],["Day streak",SI.s+" 🔥"]].map(([a,b])=>`<div class="stat"><b>${b}</b><span>${a}</span></div>`).join("");
-}
-$("tp").addEventListener("change",e=>{const k=e.target.dataset.k;if(!k)return;if(e.target.checked){done.add(k);times[k]=Date.now()}else{done.delete(k);delete times[k]}save();render()});
-$("tp").addEventListener("toggle",e=>{const i=+e.target.dataset.i;if(isNaN(i)||term)return;e.target.open?open.add(i):open.delete(i)},true);
-$("q").oninput=e=>{term=e.target.value.trim().toLowerCase();render()};
-$("pf").onchange=e=>{pf=e.target.value;render()};
-$("sf").onchange=e=>{sf=e.target.value;render()};
-$("ex").onclick=()=>{const all=open.size<T.length;open=all?new Set(T.keys()):new Set();$("ex").textContent=all?"Collapse all":"Expand all";render()};
-$("th").onclick=()=>{const r=document.documentElement,dk=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.dataset.theme=dk?"light":"dark";try{localStorage.setItem("dsa-theme",r.dataset.theme)}catch(e){}};
-$("tp").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.s){const k=b.dataset.s;stars.has(k)?stars.delete(k):stars.add(k);save();render()}else if(b.dataset.n){const k=b.dataset.n;noteOpen.has(k)?noteOpen.delete(k):noteOpen.add(k);render();const t=document.querySelector('textarea[data-t="'+k+'"]');if(t)t.focus()}});
-$("tp").addEventListener("input",e=>{const k=e.target.dataset.t;if(!k)return;const v=e.target.value;if(v.trim())notes[k]=v;else delete notes[k];save()});
-$("df").onchange=e=>{df=e.target.value;render()};
-const bk=$("bk");
-$("bkb").onclick=()=>{$("bt").value=JSON.stringify({v:1,name:NAME,done:[...done],times,stars:[...stars],notes});$("bm").textContent="";bk.hidden=false};
-$("bcl").onclick=()=>{bk.hidden=true};
-$("bcp").onclick=()=>{$("bt").select();let ok=false;try{navigator.clipboard.writeText($("bt").value);ok=true}catch(e){try{ok=document.execCommand("copy")}catch(x){}}$("bm").textContent=ok?"Copied.":"Text selected – press Ctrl+C (or long-press Copy)."};
-$("brs").onclick=()=>{try{const d=JSON.parse($("bt").value);if(!Array.isArray(d.done))throw 0;done=new Set(d.done);times=d.times||{};stars=new Set(d.stars||[]);notes=d.notes||{};if(d.name){NAME=String(d.name).slice(0,30);try{localStorage.setItem("dsa-name",NAME)}catch(e){}greet()}save();render();$("bm").textContent="Restored ✓"}catch(e){$("bm").textContent="That does not look like a valid backup."}};
-let NAME="";try{NAME=localStorage.getItem("dsa-name")||""}catch(e){}
-const QS=[["Talk is cheap. Show me the code.","Linus Torvalds"],["Programs must be written for people to read, and only incidentally for machines to execute.","Harold Abelson"],["Any fool can write code that a computer can understand. Good programmers write code that humans can understand.","Martin Fowler"],["The best way to predict the future is to invent it.","Alan Kay"],["Make it work, make it right, make it fast.","Kent Beck"],["We are what we repeatedly do. Excellence, then, is not an act, but a habit.","Will Durant"],["I have no special talent. I am only passionately curious.","Albert Einstein"],["It always seems impossible until it’s done.","Nelson Mandela"],["An investment in knowledge pays the best interest.","Benjamin Franklin"],["A journey of a thousand miles begins with a single step.","Lao Tzu"]];
-const GR=[["Hello","👋"],["Hi","😊"],["Hey","🚀"],["Welcome back","🎉"],["Good to see you","✨"],["Namaste","🙏"],["Hola","🌟"],["Bonjour","😎"],["Ciao","🔥"],["Ready to code","💻"],["Keep going","💪"]];
-function greet(){const h=new Date().getHours();const g=GR[Math.floor(Math.random()*GR.length)];$("hello").textContent=g[0]+", "+NAME+" "+g[1];$("gm").textContent="Good "+(h<5?"night":h<12?"morning":h<17?"afternoon":h<21?"evening":"night")+"! "+(h<5?"Sleep well and rest up.":h<12?"Have a great day!":h<17?"Hope your afternoon goes well!":h<21?"Have a lovely evening!":"Sleep well and rest up.")}
-function quote(){const q=QS[Math.floor(Math.random()*QS.length)];const e=$("qt");e.textContent="“"+q[0]+"”";const s=document.createElement("small");s.textContent="— "+q[1];e.appendChild(s)}
-const askName=()=>{$("ov").hidden=false;$("nm").value=NAME;$("nm").focus()};
-const setName=()=>{const v=$("nm").value.trim();if(!v){$("nm").focus();return}NAME=v.slice(0,30);try{localStorage.setItem("dsa-name",NAME)}catch(e){}$("ov").hidden=true;greet();push()};
-$("go").onclick=setName;$("nm").onkeydown=e=>{if(e.key==="Enter")setName()};$("cn").onclick=askName;
-const CLOUD=!SUPABASE_URL.startsWith("PASTE")&&!!window.supabase;
-const au=$("au"),sy=$("sy");
-const snap=()=>({v:1,name:NAME,done:[...done],times,stars:[...stars],notes});
-function apply(d){done=new Set(d.done||[]);times=d.times||{};stars=new Set(d.stars||[]);notes=d.notes||{};if(d.name){NAME=String(d.name).slice(0,30);try{localStorage.setItem("dsa-name",NAME)}catch(e){}}lsave()}
-function push(){if(!sb||!uid)return;clearTimeout(pushT);sy.textContent="Saving\u2026";pushT=setTimeout(()=>{sb.from("progress").upsert({user_id:uid,email:uemail,data:snap(),updated_at:new Date().toISOString()}).then(r=>{sy.textContent=r.error?"Sync failed":"Synced \u2713"})},700)}
-const resetLocal=()=>{done=new Set();times={};stars=new Set();notes={};noteOpen=new Set();NAME="";try{["dsa-done","dsa-times","dsa-stars","dsa-notes","dsa-name"].forEach(k=>localStorage.removeItem(k))}catch(e){}render();greet()};
-async function onSession(s){uid=s?s.user.id:null;uemail=s?s.user.email:"";isAdmin=false;$("adb").hidden=true;$("acb").textContent=s?"Sign out ("+s.user.email+")":"Sign in to sync";if(!s)return;sy.textContent="Loading\u2026";const r=await sb.from("progress").select("data").eq("user_id",uid).maybeSingle();if(r.error){sy.textContent="Sync failed";return}if(r.data&&r.data.data&&r.data.data.done){apply(r.data.data);render();greet();push()}else{const mn=s.user.user_metadata&&s.user.user_metadata.name;if(mn&&!NAME){NAME=String(mn).slice(0,30);lsave();greet()}push()}{const mn=s.user.user_metadata&&s.user.user_metadata.name;if(!NAME&&mn){NAME=String(mn).slice(0,30);lsave();greet();push()}}const ar=await sb.from("admins").select("user_id").eq("user_id",uid).maybeSingle();isAdmin=!!ar.data;$("adb").hidden=!isAdmin;if(!NAME){NAME=(s.user.email||"Friend").split("@")[0].slice(0,30);lsave();greet();push()}}
-async function initCloud(){if(!CLOUD)return;sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const r=await sb.auth.getSession();await onSession(r.data.session);if(!r.data.session&&!NAME)au.hidden=false;sb.auth.onAuthStateChange((_e,s)=>{if(_e==="PASSWORD_RECOVERY"){$("pw").hidden=false;return}if((s?s.user.id:null)!==uid&&s)onSession(s)})}
-async function authDo(up){const email=$(up?"re":"ae").value.trim(),pw=$(up?"rp":"ap").value,nm=$("an").value.trim(),m=$(up?"rm":"am");if(up&&!nm){m.textContent="Please enter your name to create an account.";return}if(!CLOUD){m.textContent="Cloud sync is not set up yet.";return}m.textContent="Please wait\u2026";const r=up?await sb.auth.signUp({email,password:pw,options:{data:{name:nm},emailRedirectTo:location.href.split("#")[0].split("?")[0]}}):await sb.auth.signInWithPassword({email,password:pw});if(r.error){const x=(r.error.message||"").toLowerCase();m.textContent=x.includes("invalid login")?"Wrong email or password. If you have not registered yet, click Register on the left side first.":x.includes("not confirmed")?"Please verify your email first. Check your inbox for the verification link.":r.error.message;return}if(up&&!r.data.session){m.textContent="Verification email sent. Click the link in it, then sign in.";return}au.hidden=true;m.textContent=""}
-$("lf").onsubmit=e=>{e.preventDefault();authDo(false)};$("rf").onsubmit=e=>{e.preventDefault();authDo(true)};
-const acx=$("ac");$("gsu").onclick=()=>acx.classList.add("right-panel-active");$("gsi").onclick=()=>acx.classList.remove("right-panel-active");
-acx.querySelectorAll(".sw a").forEach(a=>a.onclick=e=>{e.preventDefault();acx.classList.toggle("right-panel-active",a.dataset.to==="up")});
-$("afp").onclick=async e=>{e.preventDefault();const email=$("ae").value.trim(),m=$("am");if(!CLOUD){m.textContent="Cloud sync is not set up yet.";return}if(!email){m.textContent="Type your email above first, then click Forgot Password.";return}m.textContent="Please wait\u2026";const r=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.href.split("#")[0].split("?")[0]});m.textContent=r.error?r.error.message:"Password reset email sent. Check your inbox."};
-$("pwb").onclick=async()=>{const r=await sb.auth.updateUser({password:$("np").value});$("pm").textContent=r.error?r.error.message:"Password updated \u2713";if(!r.error)setTimeout(()=>{$("pw").hidden=true},900)};
-$("acl").onclick=()=>{au.hidden=true;if(!NAME)askName()};
-$("acb").onclick=async()=>{if(CLOUD&&uid){await sb.auth.signOut();uid=null;uemail="";isAdmin=false;$("adb").hidden=true;$("acb").textContent="Sign in to sync";sy.textContent="";resetLocal();au.hidden=false}else{$("am").textContent=CLOUD?"":"Cloud sync is not set up yet (see setup steps).";au.hidden=false}};
-$("qt").onclick=quote;greet();quote();if(!NAME&&!CLOUD)askName();
-const ad=$("ad");
-$("adc").onclick=()=>{ad.hidden=true};
-$("adb").onclick=async()=>{ad.hidden=false;$("adm").textContent="Loading\u2026";$("adl").innerHTML="";const r=await sb.from("progress").select("user_id,email,data,updated_at").order("updated_at",{ascending:false});if(r.error){$("adm").textContent="Could not load: "+r.error.message;return}const tot=T.reduce((a,t)=>a+t.q.length,0);$("adm").textContent=r.data.length+" member(s)";$("adl").innerHTML=r.data.map(u=>{const d=u.data||{},ds=new Set(d.done||[]),n=ds.size,pc=Math.round(n/tot*100);const tl=T.map((t,ti)=>{const c=t.q.filter((_,qi)=>ds.has(ti+"-"+qi)).length;return `<div class="th"><span>${esc(t.n)}</span><span class="tc">${c} / ${t.q.length}</span></div>`}).join("");return `<details class="uc"><summary><div class="th"><div class="tn">${esc(d.name||"(no name)")} <small>${esc(u.email||"")}</small></div><div class="tc"><span>Solved <b>${n}</b> / ${tot}</span><span>${pc}%</span><span>${u.updated_at?fmt(u.updated_at):""}</span></div></div><div class="bar"><i style="width:${pc}%"></i></div></summary><div class="list">${tl}</div></details>`}).join("")};
-$("tp").addEventListener("click",e=>{const b=e.target.closest("button[data-ai]");if(b)aiAsk(b.dataset.ai,b.dataset.k2)});
-async function aiAsk(mode,k){
- if(!CLOUD||!uid){aiOut[k]="Sign in to use the AI helper.";render();return}
- const p=k.split("-").map(Number),name=T[p[0]].q[p[1]].n;
- aiOut[k]="Thinking\u2026";render();
- try{const s=(await sb.auth.getSession()).data.session;
-  const r=await fetch(SUPABASE_URL+"/functions/v1/ai-helper",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+s.access_token,"apikey":SUPABASE_KEY},body:JSON.stringify({question:name,mode,note:notes[k]||""})});
-  const d=await r.json();aiOut[k]=d.text||d.error||"No answer.";
- }catch(e){aiOut[k]="Could not reach the AI helper."}
- render();
-}
-render();
-initCloud();
-</script>
+        function render() {
+            let tot = 0, dn = 0, tDone = 0, tAll = 0;
+            const html = T.map((t, ti) => {
+                const base = t.q.map((q, qi) => ({ ...q, k: ti + "-" + qi })).filter(inPf);
+                const d = base.filter(q => done.has(q.k)).length, n = base.length;
+                tot += n; dn += d;
+                if (n) { tAll++; if (d === n) tDone++ }
+                const rows = base.filter(q => (sf === "A" || (sf === "R" ? stars.has(q.k) : (sf === "D") === done.has(q.k))) && (df === "A" || dl(q.n) === df) && q.n.toLowerCase().includes(term));
+                if (!n || ((term || sf !== "A" || df !== "A") && !rows.length)) return "";
+                const pc = Math.round(d / n * 100);
+                const li = rows.map(q => {
+                    const e = encodeURIComponent(q.n);
+                    return `<div class="q${done.has(q.k) ? " d" : ""}"><input type="checkbox" data-k="${q.k}"${done.has(q.k) ? " checked" : ""} aria-label="Done: ${esc(q.n)}"><span class="nm"><span class="nt">${esc(q.n)}</span>${times[q.k] && done.has(q.k) ? `<span class="tm">Solved ${fmt(times[q.k])}</span>` : ""}</span>${q.p !== "S" ? '<span class="bd bN">N</span>' : ""}${q.p !== "N" ? '<span class="bd bS">S</span>' : ""}${tag(q.n)}<button class="ic${stars.has(q.k) ? " on" : ""}" data-s="${q.k}" title="Revise later">${stars.has(q.k) ? "★" : "☆"}</button><button class="ic${notes[q.k] ? " on" : ""}" data-n="${q.k}" title="Notes">📝</button><span class="lk">${lcLink(q.n, e)}<a href="https://www.youtube.com/results?search_query=${e}+solution" target="_blank" rel="noopener">YouTube</a></span></div>${noteOpen.has(q.k) ? `<div class="nb"><textarea data-t="${q.k}" placeholder="Your approach, mistakes, complexity…">${esc(notes[q.k] || "")}</textarea><div class="ai"><button data-ai="hint" data-k2="${q.k}">💡 Hint</button><button data-ai="review" data-k2="${q.k}">🔍 Review my note</button></div><div class="air">${esc(aiOut[q.k] || "")}</div></div>` : ""}`
+                }).join("");
+                return `<details class="card${d === n ? " done-t" : ""}" data-i="${ti}"${open.has(ti) || term ? " open" : ""}><summary><div class="th"><div class="tn">${esc(t.n)} <small>${pc}%</small></div><div class="tc"><span>Total <b>${n}</b></span><span>Done <b style="color:var(--ok)">${d}</b></span><span>Left <b>${n - d}</b></span></div></div><div class="bar${d === n ? " ok" : ""}"><i style="width:${pc}%"></i></div></summary><div class="list">${li || '<div class="empty">No matching questions.</div>'}</div></details>`;
+            }).join("");
+            $("tp").innerHTML = html || '<div class="empty">Nothing matches your filters.</div>';
+            const pc = tot ? Math.round(dn / tot * 100) : 0;
+            $("pct").textContent = pc + "%";
+            $("ob").firstElementChild.style.width = pc + "%";
+            $("plat").textContent = ({ A: "NeetCode + Striver", N: "NeetCode 150", S: "Striver Master DSA" })[pf];
+            const SI = streakInfo(); $("st").innerHTML = [["Total", tot], ["Completed", dn], ["Remaining", tot - dn], ["Topics done", tDone + " / " + tAll], ["Topics left", tAll - tDone], ["Solved today", SI.t], ["Day streak", SI.s + " 🔥"]].map(([a, b]) => `<div class="stat"><b>${b}</b><span>${a}</span></div>`).join("");
+        }
+        $("tp").addEventListener("change", e => { const k = e.target.dataset.k; if (!k) return; if (e.target.checked) { done.add(k); times[k] = Date.now() } else { done.delete(k); delete times[k] } save(); render() });
+        $("tp").addEventListener("toggle", e => { const i = +e.target.dataset.i; if (isNaN(i) || term) return; e.target.open ? open.add(i) : open.delete(i) }, true);
+        $("q").oninput = e => { term = e.target.value.trim().toLowerCase(); render() };
+        $("pf").onchange = e => { pf = e.target.value; render() };
+        $("sf").onchange = e => { sf = e.target.value; render() };
+        $("ex").onclick = () => { const all = open.size < T.length; open = all ? new Set(T.keys()) : new Set(); $("ex").textContent = all ? "Collapse all" : "Expand all"; render() };
+        $("th").onclick = () => { const r = document.documentElement, dk = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme:dark)").matches; r.dataset.theme = dk ? "light" : "dark"; try { localStorage.setItem("dsa-theme", r.dataset.theme) } catch (e) { } };
+        $("tp").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; if (b.dataset.s) { const k = b.dataset.s; stars.has(k) ? stars.delete(k) : stars.add(k); save(); render() } else if (b.dataset.n) { const k = b.dataset.n; noteOpen.has(k) ? noteOpen.delete(k) : noteOpen.add(k); render(); const t = document.querySelector('textarea[data-t="' + k + '"]'); if (t) t.focus() } });
+        $("tp").addEventListener("input", e => { const k = e.target.dataset.t; if (!k) return; const v = e.target.value; if (v.trim()) notes[k] = v; else delete notes[k]; save() });
+        $("df").onchange = e => { df = e.target.value; render() };
+        const bk = $("bk");
+        $("bkb").onclick = () => { $("bt").value = JSON.stringify({ v: 1, name: NAME, done: [...done], times, stars: [...stars], notes }); $("bm").textContent = ""; bk.hidden = false };
+        $("bcl").onclick = () => { bk.hidden = true };
+        $("bcp").onclick = () => { $("bt").select(); let ok = false; try { navigator.clipboard.writeText($("bt").value); ok = true } catch (e) { try { ok = document.execCommand("copy") } catch (x) { } } $("bm").textContent = ok ? "Copied." : "Text selected – press Ctrl+C (or long-press Copy)." };
+        $("brs").onclick = () => { try { const d = JSON.parse($("bt").value); if (!Array.isArray(d.done)) throw 0; done = new Set(d.done); times = d.times || {}; stars = new Set(d.stars || []); notes = d.notes || {}; if (d.name) { NAME = String(d.name).slice(0, 30); try { localStorage.setItem("dsa-name", NAME) } catch (e) { } greet() } save(); render(); $("bm").textContent = "Restored ✓" } catch (e) { $("bm").textContent = "That does not look like a valid backup." } };
+        let NAME = ""; try { NAME = localStorage.getItem("dsa-name") || "" } catch (e) { }
+        const QS = [["Talk is cheap. Show me the code.", "Linus Torvalds"], ["Programs must be written for people to read, and only incidentally for machines to execute.", "Harold Abelson"], ["Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", "Martin Fowler"], ["The best way to predict the future is to invent it.", "Alan Kay"], ["Make it work, make it right, make it fast.", "Kent Beck"], ["We are what we repeatedly do. Excellence, then, is not an act, but a habit.", "Will Durant"], ["I have no special talent. I am only passionately curious.", "Albert Einstein"], ["It always seems impossible until it’s done.", "Nelson Mandela"], ["An investment in knowledge pays the best interest.", "Benjamin Franklin"], ["A journey of a thousand miles begins with a single step.", "Lao Tzu"]];
+        const GR = [["Hello", "👋"], ["Hi", "😊"], ["Hey", "🚀"], ["Welcome back", "🎉"], ["Good to see you", "✨"], ["Namaste", "🙏"], ["Hola", "🌟"], ["Bonjour", "😎"], ["Ciao", "🔥"], ["Ready to code", "💻"], ["Keep going", "💪"]];
+        function greet() { const h = new Date().getHours(); const g = GR[Math.floor(Math.random() * GR.length)]; $("hello").textContent = g[0] + ", " + NAME + " " + g[1]; $("gm").textContent = "Good " + (h < 5 ? "night" : h < 12 ? "morning" : h < 17 ? "afternoon" : h < 21 ? "evening" : "night") + "! " + (h < 5 ? "Sleep well and rest up." : h < 12 ? "Have a great day!" : h < 17 ? "Hope your afternoon goes well!" : h < 21 ? "Have a lovely evening!" : "Sleep well and rest up.") }
+        function quote() { const q = QS[Math.floor(Math.random() * QS.length)]; const e = $("qt"); e.textContent = "“" + q[0] + "”"; const s = document.createElement("small"); s.textContent = "— " + q[1]; e.appendChild(s) }
+        const askName = () => { $("ov").hidden = false; $("nm").value = NAME; $("nm").focus() };
+        const setName = () => { const v = $("nm").value.trim(); if (!v) { $("nm").focus(); return } NAME = v.slice(0, 30); try { localStorage.setItem("dsa-name", NAME) } catch (e) { } $("ov").hidden = true; greet(); push() };
+        $("go").onclick = setName; $("nm").onkeydown = e => { if (e.key === "Enter") setName() }; $("cn").onclick = askName;
+        const CLOUD = !SUPABASE_URL.startsWith("PASTE") && !!window.supabase;
+        const au = $("au"), sy = $("sy");
+        const snap = () => ({ v: 1, name: NAME, done: [...done], times, stars: [...stars], notes });
+        function apply(d) { done = new Set(d.done || []); times = d.times || {}; stars = new Set(d.stars || []); notes = d.notes || {}; if (d.name) { NAME = String(d.name).slice(0, 30); try { localStorage.setItem("dsa-name", NAME) } catch (e) { } } lsave() }
+        function push() { if (!sb || !uid) return; clearTimeout(pushT); sy.textContent = "Saving\u2026"; pushT = setTimeout(() => { sb.from("progress").upsert({ user_id: uid, email: uemail, data: snap(), updated_at: new Date().toISOString() }).then(r => { sy.textContent = r.error ? "Sync failed" : "Synced \u2713" }) }, 700) }
+        const resetLocal = () => { done = new Set(); times = {}; stars = new Set(); notes = {}; noteOpen = new Set(); NAME = ""; try { ["dsa-done", "dsa-times", "dsa-stars", "dsa-notes", "dsa-name"].forEach(k => localStorage.removeItem(k)) } catch (e) { } render(); greet() };
+        async function onSession(s) { uid = s ? s.user.id : null; uemail = s ? s.user.email : ""; isAdmin = false; $("adb").hidden = true; $("acb").textContent = s ? "Sign out (" + s.user.email + ")" : "Sign in to sync"; if (!s) return; sy.textContent = "Loading\u2026"; const r = await sb.from("progress").select("data").eq("user_id", uid).maybeSingle(); if (r.error) { sy.textContent = "Sync failed"; return } if (r.data && r.data.data && r.data.data.done) { apply(r.data.data); render(); greet(); push() } else { const mn = s.user.user_metadata && s.user.user_metadata.name; if (mn && !NAME) { NAME = String(mn).slice(0, 30); lsave(); greet() } push() } { const mn = s.user.user_metadata && s.user.user_metadata.name; if (!NAME && mn) { NAME = String(mn).slice(0, 30); lsave(); greet(); push() } } const ar = await sb.from("admins").select("user_id").eq("user_id", uid).maybeSingle(); isAdmin = !!ar.data; $("adb").hidden = !isAdmin; if (!NAME) { NAME = (s.user.email || "Friend").split("@")[0].slice(0, 30); lsave(); greet(); push() } }
+        async function initCloud() { if (!CLOUD) return; sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); const r = await sb.auth.getSession(); await onSession(r.data.session); if (!r.data.session && !NAME) au.hidden = false; sb.auth.onAuthStateChange((_e, s) => { if (_e === "PASSWORD_RECOVERY") { $("pw").hidden = false; return } if ((s ? s.user.id : null) !== uid && s) onSession(s) }) }
+        async function authDo(up) { const email = $(up ? "re" : "ae").value.trim(), pw = $(up ? "rp" : "ap").value, nm = $("an").value.trim(), m = $(up ? "rm" : "am"); if (up && !nm) { m.textContent = "Please enter your name to create an account."; return } if (!CLOUD) { m.textContent = "Cloud sync is not set up yet."; return } m.textContent = "Please wait\u2026"; const r = up ? await sb.auth.signUp({ email, password: pw, options: { data: { name: nm }, emailRedirectTo: location.href.split("#")[0].split("?")[0] } }) : await sb.auth.signInWithPassword({ email, password: pw }); if (r.error) { const x = (r.error.message || "").toLowerCase(); m.textContent = x.includes("invalid login") ? "Wrong email or password. If you have not registered yet, click Register on the left side first." : x.includes("not confirmed") ? "Please verify your email first. Check your inbox for the verification link." : r.error.message; return } if (up && !r.data.session) { m.textContent = "Verification email sent. Click the link in it, then sign in."; return } au.hidden = true; m.textContent = "" }
+        $("lf").onsubmit = e => { e.preventDefault(); authDo(false) }; $("rf").onsubmit = e => { e.preventDefault(); authDo(true) };
+        const acx = $("ac"); $("gsu").onclick = () => acx.classList.add("right-panel-active"); $("gsi").onclick = () => acx.classList.remove("right-panel-active");
+        acx.querySelectorAll(".sw a").forEach(a => a.onclick = e => { e.preventDefault(); acx.classList.toggle("right-panel-active", a.dataset.to === "up") });
+        $("afp").onclick = async e => { e.preventDefault(); const email = $("ae").value.trim(), m = $("am"); if (!CLOUD) { m.textContent = "Cloud sync is not set up yet."; return } if (!email) { m.textContent = "Type your email above first, then click Forgot Password."; return } m.textContent = "Please wait\u2026"; const r = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.href.split("#")[0].split("?")[0] }); m.textContent = r.error ? r.error.message : "Password reset email sent. Check your inbox." };
+        $("pwb").onclick = async () => { const r = await sb.auth.updateUser({ password: $("np").value }); $("pm").textContent = r.error ? r.error.message : "Password updated \u2713"; if (!r.error) setTimeout(() => { $("pw").hidden = true }, 900) };
+        $("acl").onclick = () => { au.hidden = true; if (!NAME) askName() };
+        $("acb").onclick = async () => { if (CLOUD && uid) { await sb.auth.signOut(); uid = null; uemail = ""; isAdmin = false; $("adb").hidden = true; $("acb").textContent = "Sign in to sync"; sy.textContent = ""; resetLocal(); au.hidden = false } else { $("am").textContent = CLOUD ? "" : "Cloud sync is not set up yet (see setup steps)."; au.hidden = false } };
+        $("qt").onclick = quote; greet(); quote(); if (!NAME && !CLOUD) askName();
+        const ad = $("ad");
+        $("adc").onclick = () => { ad.hidden = true };
+        $("adb").onclick = async () => { ad.hidden = false; $("adm").textContent = "Loading\u2026"; $("adl").innerHTML = ""; const r = await sb.from("progress").select("user_id,email,data,updated_at").order("updated_at", { ascending: false }); if (r.error) { $("adm").textContent = "Could not load: " + r.error.message; return } const tot = T.reduce((a, t) => a + t.q.length, 0); $("adm").textContent = r.data.length + " member(s)"; $("adl").innerHTML = r.data.map(u => { const d = u.data || {}, ds = new Set(d.done || []), n = ds.size, pc = Math.round(n / tot * 100); const tl = T.map((t, ti) => { const c = t.q.filter((_, qi) => ds.has(ti + "-" + qi)).length; return `<div class="th"><span>${esc(t.n)}</span><span class="tc">${c} / ${t.q.length}</span></div>` }).join(""); return `<details class="uc"><summary><div class="th"><div class="tn">${esc(d.name || "(no name)")} <small>${esc(u.email || "")}</small></div><div class="tc"><span>Solved <b>${n}</b> / ${tot}</span><span>${pc}%</span><span>${u.updated_at ? fmt(u.updated_at) : ""}</span></div></div><div class="bar"><i style="width:${pc}%"></i></div></summary><div class="list">${tl}</div></details>` }).join("") };
+        $("tp").addEventListener("click", e => { const b = e.target.closest("button[data-ai]"); if (b) aiAsk(b.dataset.ai, b.dataset.k2) });
+        async function aiAsk(mode, k) {
+            if (!CLOUD || !uid) { aiOut[k] = "Sign in to use the AI helper."; render(); return }
+            const p = k.split("-").map(Number), name = T[p[0]].q[p[1]].n;
+            aiOut[k] = "Thinking\u2026"; render();
+            try {
+                const s = (await sb.auth.getSession()).data.session;
+                const r = await fetch(SUPABASE_URL + "/functions/v1/ai-helper", { method: "POST", headers: { "Content-Type": "application/json", "Authorization": "Bearer " + s.access_token, "apikey": SUPABASE_KEY }, body: JSON.stringify({ question: name, mode, note: notes[k] || "" }) });
+                const d = await r.json(); aiOut[k] = d.text || d.error || "No answer.";
+            } catch (e) { aiOut[k] = "Could not reach the AI helper." }
+            render();
+        }
+        render();
+        initCloud();
+    </script>
 </body>
+
 </html>
